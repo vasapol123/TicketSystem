@@ -10,6 +10,7 @@ var topic = '/kim_test';
 function onConnectionLost() {
     console.log('Connection lost');
     connected_flag = 0;
+    setTimeout(MQTTconnect, reconnectTimeout);
 }
 
 function onFailure(message) {
@@ -32,14 +33,6 @@ function onConnect() {
 }
 
 function MQTTconnect() {
-    // var first_name = document.forms['connect_form']['first_name'].value;
-
-    // if (first_name != '') {
-    //     console.log('first_name');
-    //     form = parseInt(first_name); // 8081
-    //     console.log('first_name ' + form);
-    // }
-
     var x = Math.floor(Math.random() * 10000);
     var cname = 'orderform-' + x;
     mqtt = new Paho.MQTT.Client(host, Number(port), cname);
@@ -74,4 +67,5 @@ function sendMessage(msg) {
         message.destinationName = topic;
     }
     mqtt.send(message);
+    return true;
 }

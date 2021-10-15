@@ -174,7 +174,7 @@
         top: 0;
         position: absolute; }
       .checkbox input + span:before {
-        height: 20px;
+        height: 19px;
         border: var(--border-width) solid var(--border-checkbox);
         background: #fff;
         transition: background .3s ease, border-color .3s ease; }
@@ -194,7 +194,7 @@
   .checkbox input + span:not(:empty) {
     padding-left: 36px; }
   .checkbox input + span:before {
-    width: 20px; }
+    width: 19px; }
   .checkbox input + span:after {
     opacity: 0; }
 

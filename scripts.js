@@ -100,6 +100,12 @@ file.addEventListener('change', (e) => {
             files  = e.target.files[i];
             ({fileName, size} = {fileName: files.name, size: files.size});
             console.log(fileName);
+            
+
+            if (fileName.length >= 30) {
+                let splitName = fileName.split('.');
+                fileName = splitName[0].substring(0, 30) + "... ." + splitName[1];
+            }
             fileSize = (size / 1000);
             let new_fileSize;
             (fileSize < 1024) ? new_fileSize = fileSize + " KB" : new_fileSize = (size / (1024 * 1024)).toFixed(2) + " MB";
@@ -176,19 +182,23 @@ submitForm = function() {
                                                                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation-circle" class="svg-inline--fa fa-exclamation-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg>
                                                                   </div>
                                                                   <p>${error_msg}</p>`;
+            if (window.matchMedia("(min-width: 952px)").matches) {
+                document.querySelector('#invalid_phone').style.display = "flex";
+            }
             document.querySelector('#invalid_id').style.display = "flex";
-            document.querySelector('#invalid_phone').style.display = "flex";
             count--;
         }
         else if (inputField[i] === 'phone_number' && (`${element[0].value}`.match(new RegExp(/[0-9]/, "g")) || []).length != 10 && element[0].value != 0) {
-            let error_msg = "Phone number format is invalid or must have 10 digits.";
+            let error_msg = "Phone number must have 10 digits.";
 
             document.getElementsByClassName(inputField[i])[0].style = `box-shadow: inset 0 0 0 0.125rem ${error_color};`;
             document.querySelector('#invalid_phone').innerHTML = `<div>
                                                                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation-circle" class="svg-inline--fa fa-exclamation-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg>
                                                                   </div>
                                                                   <p>${error_msg}</p>`;
-            document.querySelector('#invalid_id').style.display = "flex";
+            if (window.matchMedia("(min-width: 952px)").matches) {
+                document.querySelector('#invalid_id').style.display = "flex";
+            }
             document.querySelector('#invalid_phone').style.display = "flex";
             count--;
         }
@@ -245,7 +255,28 @@ submitForm = function() {
                     "date":"${json[5].date}",
                     "src":[${JSON.stringify(json[6])}],
                     "description":"${json[7].description}"}`
-                sendMessage(json_format);
+                
+                if (sendMessage(json_format) === false) {
+                    let error_message = 'Error: Something went wrong. Please send confirmation again.';
+                    let invalid_form = `<div>
+                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
+                                </div>
+                                <p>${error_message}</p>`
+                    document.querySelector('.invalid-form').innerHTML = invalid_form;
+                }
+                else {
+                    document.getElementById('myform').submit();
+
+                    let success_message = 'Your information has been send successfully.'
+                    document.querySelector('.invalid-form').style.background = '#DFF2BF';
+                    let invalid_form = `<div>
+                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="check-circle" class="svg-inline--fa fa-check-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>                                </div>
+                                <p>${success_message}</p>`
+                    document.querySelector('.invalid-form').innerHTML = invalid_form;
+                    document.querySelector('.invalid-form').children[1].style.color = '#4F8A10';
+                    document.querySelector('.invalid-form').children[0].children[0].style.color = '#4F8A10';
+                    setTimeout(() => {window.location.reload(false)} , 3000);
+                }   
             }
         }
         else {
@@ -273,7 +304,7 @@ submitForm = function() {
 
 function alphaOnly(event) {
     var value = String.fromCharCode(event.which);
-    var pattern = new RegExp(/[a-zA-Z]/i);
+    var pattern = new RegExp(/[a-zA-Z]|[ก-๏\s]/i);
     return pattern.test(value);
 }
 
@@ -287,29 +318,6 @@ $('#fn').bind('keypress', alphaOnly);
 $('#ln').bind('keypress', alphaOnly);
 $('#idn').bind('keypress', numberOnly);
 $('#pn').bind('keypress', numberOnly);
-
-// submitTest = function() {
-//     let first_name  = document.forms['connect_form']['first_name'].value;
-//     let last_name = document.forms['connect_form']['last_name'].value;
-//     let id_number = document.forms['connect_form']['id_number'].value;
-//     let phone_number = document.forms['connect_form']['phone_number'].value;
-//     let address = document.forms['connect_form']['user_address'].value;
-//     let date = document.forms['connect_form']['date'].value;
-//     let description = document.forms['connect_form']['description'].value;
-
-//     let json_format = `{
-//         "first_name": "${first_name}",
-//         "last_name": "${last_name}",
-//         "id_number": "${id_number}",
-//         "phone_number":"${phone_number}",
-//         "address":"${address}",
-//         "date":"${date}",
-//         "description":"${description}"
-//     }`
-//     sendMessage(json_format);
-//     return false;
-// }
-
 
 var inputForm = document.querySelectorAll('input, textarea');
 

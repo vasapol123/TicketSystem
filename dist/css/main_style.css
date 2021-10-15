@@ -105,7 +105,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
 }
 .navbar {
     margin: 0 56px;
@@ -207,6 +207,7 @@ body {
     height: 100vh;
     background-color: #23232e;
     transition: .5s ease-in-out;
+    z-index: 1;
 }
 .sec-navbar-nav {
     display: flex;
@@ -334,7 +335,8 @@ div .title {
     padding: 3rem 4.5rem;
     border-radius: .375rem;
     background-color: #fff;
-    box-shadow: 0.5rem 0.5rem 2rem 0 rgb(8 15 41 / 8%), 0 0 1px 0 rgb(8 15 41 / 8%);
+    box-shadow:  0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    /* box-shadow: 0.5rem 0.5rem 2rem 0 rgb(8 15 41 / 8%), 0 0 1px 0 rgb(8 15 41 / 8%); */
 }
 .row-form p:nth-child(1) {
     text-align: left;
@@ -358,9 +360,11 @@ div .title {
 }
 .row-form h1 {
     text-align: left;
+    font-family: 'Circular Std Book', sans-serif;
     width: 100%;
     margin: 0 0 12px 0;
     font-weight: 400;
+    font-style: normal;
     font-size: 36px;
 }
 .row-form h3 {
@@ -369,6 +373,21 @@ div .title {
     padding: 0 0 24px 0;
     font-weight: 400;
     font-size: 18px;
+}
+.row-form .col-form > label {
+    text-align: left;
+    color: #677788;
+    width: 100%;
+    max-width: 230px;
+}
+.row-form .col-form > label:nth-child(n+10) {
+    max-width: 488px;
+}
+label[for="last_name"], label[for="phone_number"] {
+    margin-left: 28px;
+}
+.row-form .col-form > label:nth-child(n+3) {
+    margin-top: 1.5rem;
 }
 .col-form {
     width: 100%;
@@ -456,32 +475,13 @@ div .title {
 .col-form .user_address {
     transition: .2s;
 }
-/* .col-form >label {
-    padding-bottom: 8px;
-} */
-/* .col-form > label:nth-child(1){
-    text-align: left;
-    padding-left: 56px;
-    width: 50%;
-}
-.col-form > label:nth-child(2) {
-    text-align: left;
-    padding-left: 14px;
-    width: auto;
-}
-.col-form > label:nth-child(n+4) {
-    text-align: left;
-    padding-left: 56px;
-    margin-top: 1.5rem;
-    width: 100%;
-} */
 .col-form > div {
     max-width: 230px;
 }
 .col-form > div {
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
-.col-form > div:nth-child(n+6) {
+.col-form > div:nth-child(n+10) {
 max-width: 488px; /*56 +240*2*/
 /* margin-top: 1.5rem; */
 margin-left: 56px;
@@ -577,7 +577,7 @@ form:not(.textarea) {
 #file-name {
     width: 100%;
     flex-flow: column nowrap;
-    max-height: 128px;
+    margin-left: 8px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -589,33 +589,34 @@ form:not(.textarea) {
 }
 #file-name p {
     display: flex;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Circular Std Book', sans-serif;
     align-items: center;
     height: 56px;
-    width: 100%;
-    margin-left: 16px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
-    background-color: #f8f9fa;
     border: .125rem solid #f8f9fa;
+    background-color: #f8f9fa;
     border-radius: .25rem;
-    margin: 0 8px 8px 8px;
-    padding: 0 0 0 16px;
     justify-content: center;
+    border-radius: .25rem;
+    margin: 8px 0;
+    padding: 0 16px;
     text-align: left;
+    width: 100%;
     flex-flow: column wrap;
+}
+#file-name p:first-child {
+    margin-top: 0;
 }
 #file-name p:last-child {
     margin-bottom: 0;
 }
 #file-name p span {
-    width: 100%;
+    width: 90%;
     color: black;
     margin-left: 8px;
 }
 #file-name p span:nth-child(3) {
-    font-size: 12px;
-    margin-top: 4px;
     color: #646B8C;
 }
 .input__field #file-name .image  {
@@ -623,9 +624,11 @@ form:not(.textarea) {
 }
 .submit-btn {
     width: 100%;
+    margin-top: 1.5rem !important;
     order: 1;
 }
 .Anonymous-toggle {
+    margin-top: 1.5rem !important;
     max-width: 488px !important;
     width: 100%;
     text-align: left;
@@ -791,6 +794,12 @@ form:not(.textarea) {
     .nav-links {
         display: inline-block;
     }
+    label[for="first_name"] { 
+        margin-top: 1.5rem !important;
+    }
+    label[for="last_name"] {
+        margin-top: 1.5rem !important;
+    }
 }
 @media screen and (max-width: 951px) {
     .nav-hamburger {
@@ -829,6 +838,7 @@ form:not(.textarea) {
     }
     .col-form > div:nth-child(n) {
         max-width: 488px;
+        width: 100%;
         margin-left: 56px;
         margin-right: 56px;
     }
@@ -838,6 +848,41 @@ form:not(.textarea) {
     .about-wrapper p:nth-child(3) {
         font-size: 16px;
     }
+
+    /* =========== Reorder flexbox =========== */
+    label[for="first_name"] { order: 1; }
+    .first_name { order: 2; }
+    label[for="last_name"] { order: 3; 
+        margin-top: 1.5rem !important;
+    }
+    .last_name { order: 4; }
+    label[for="id_number"] { order: 5; }
+    .id_number { order: 6; }
+    label[for="phone_number"] { order: 7; }
+    .phone_number { order: 8; }
+    label[for="user_address"] { order: 9; }
+    .user_address { order: 10; }
+    label[for="date"] { order: 11; }
+    .date { order: 12; }
+    label[for="file-upload"] { order: 13; }
+    .file-upload { order: 14; }
+    label[for="description"] { order: 15; }
+    .description { order: 16; }
+    .Anonymous-toggle { order: 17; }
+    .submit-btn { order: 18; }
+
+    #invalid_id, #invalid_phone {
+        padding: 0;
+        margin-left: 56px !important;
+        margin-right: 56px !important;
+    }
+    .col-form > label {
+        max-width: 488px !important;
+        margin: 0 56px;
+    }
+
+    
+    
 }
 @media screen and (max-width: 600px) {
     .row-form {
@@ -846,6 +891,7 @@ form:not(.textarea) {
     }
     .col-form > div:nth-child(n) {
         max-width: 488px;
+        width: 100%;
         margin-left: 12px;
         margin-right: 12px;
     }
@@ -856,10 +902,21 @@ form:not(.textarea) {
         margin: 24px 1rem 0 1rem;
         width: auto;
     }
-     
+    #invalid_id, #invalid_phone {
+        padding: 0;
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+    }
+    .col-form > label {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
 }
 @media screen and (max-width: 380px) {
     input[type="datetime-local"]::-webkit-calendar-picker-indicator  {
         display: none;
+    }
+    label[for="id_number"] {
+        margin-top: 2.5rem !important;
     }
 }
