@@ -46,6 +46,12 @@ body {
 }
 
 /* ================== Table =================== */
+.page {
+    display: none;
+}
+.page.page-1 {
+    display: block;
+}
 .table__wrapper {
     width: 100%;
 }
@@ -104,6 +110,9 @@ body {
 }
 
 /* ================== Info =================== */
+.page {
+    width: 100%;
+}
 .main__info {
     display: none;
     flex-wrap: wrap;
@@ -329,4 +338,75 @@ label[for="image_upload"]
 }
 .content__wrapper .image_upload:nth-child(18) {
     margin-top: 14px;
+}
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 14px;
+}
+.pagination button {
+    display: flex;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: .35rem;
+    background-color: #fff;
+    border: 2px solid #cccccc;
+    -webkit-box-shadow: 0px 2px 0px #cccccc;
+    -moz-box-shadow: 0px 2px 0px #cccccc;
+    box-shadow: 0px 2px 0px #cccccc;
+}
+.pagination button:not(:disabled):active {
+    -webkit-box-shadow: 0px 0px 0px transparent !important;
+    -moz-box-shadow: 0px 0px 0px transparent !important;
+    box-shadow: 0px 0px 0px transparent !important;
+    transform: translateY(2px);
+}
+.pagination button:not(:disabled):hover {
+    border-color: #4dabf7;
+    -webkit-box-shadow: 0px 2px 2px #4dabf7;
+    -moz-box-shadow: 0px 2px 2px #4dabf7;
+    box-shadow: 0px 2px 2px #4dabf7;
+}
+.pagination button:disabled:hover {
+    cursor: default;
+}
+.pagination svg {
+    height: 14px;
+    width: 14px;
+    text-align: center;
+}
+.pagination input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    opacity: 0;
+}
+.pagination input[type='number'] {
+    border: 2px solid #cccccc;
+    color: #677788;
+    height: 34px;
+    width: 34px;
+    margin: 0 6px;
+    font-family: 'Circular Std Book', sans-serif;
+    font-size: 16px;
+    text-align: center;
+}
+.pagination span {
+    display: block;
+    margin-right: 6px;
+    color: #677788;
+}
+.pagination .to_firstpage {
+    position: relative;
+    height: 34px;
+    width: 34px;
+    margin-right: 6px;
+}
+.pagination .to_firstpage svg {
+    position: absolute;
+}
+.pagination .to_firstpage svg:first-child {
+    left: 4.5px;
+}
+.pagination .to_firstpage svg:last-child {
+    right: 4.5px;
 }
